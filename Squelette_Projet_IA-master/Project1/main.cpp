@@ -1,3 +1,4 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "Boo.h"
@@ -13,7 +14,7 @@ int main() {
     window.setFramerateLimit(60);
 
     Player* player = new Player(200, 400);
-    Boo* boo = new Boo(200, 100);
+    Boo* boo = new Boo(200, 100, 100);
     Grid grid;
     grid.loadFromFile("map.txt");
 

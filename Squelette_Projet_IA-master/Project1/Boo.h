@@ -7,8 +7,12 @@
 
 class Boo : public Enemy {
 public:
-	Boo(float x, float y);
+	float detectionRadius;
+
+	Boo(float x, float y, float radius);
+
 	void update(float deltaTime, Grid& grid) override;
+	bool detectPlayer(float playerPosX, float playerPosY);
 };
 
 #endif
