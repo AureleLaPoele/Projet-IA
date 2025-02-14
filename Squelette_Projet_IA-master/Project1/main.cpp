@@ -2,6 +2,7 @@
 #include "Player.hpp"
 #include "Boo.h"
 #include "Grid.hpp"
+#include "Monster.hpp"
 #include <vector>
 
 
@@ -13,7 +14,8 @@ int main() {
     window.setFramerateLimit(60);
 
     Player* player = new Player(200, 400);
-    Boo* boo = new Boo(200, 100);
+    Boo* boo = new Boo(100, 100);
+    Boo* monster = new Boo(700, 500);
     Grid grid;
     grid.loadFromFile("map.txt");
 
@@ -30,10 +32,12 @@ int main() {
         }
 
         player->update(deltaTime, grid);
+		monster->update(deltaTime, grid); 
 
         window.clear();
         grid.draw(window);
         window.draw(boo->shape);
+		window.draw(monster->shape);   
         window.draw(player->shape);
         window.display();
     }

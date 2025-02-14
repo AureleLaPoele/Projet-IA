@@ -1,17 +1,4 @@
-﻿  Enemy.cpp
-  Entity.cpp
-  Grid.cpp
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,66): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,66): warning C4244:         with
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,66): warning C4244:         [
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,66): warning C4244:             T=float
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,66): warning C4244:         ]
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,51): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,51): warning C4244:         with
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,51): warning C4244:         [
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,51): warning C4244:             T=float
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Grid.cpp(10,51): warning C4244:         ]
+﻿  Entity.cpp
   main.cpp
-  Player.cpp
   Génération de code en cours...
-  Project1.vcxproj -> C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\x64\Debug\Project1.exe
+  Project1.vcxproj -> C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\x64\Debug\Project1.exe
