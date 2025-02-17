@@ -4,14 +4,52 @@
 #include <iostream>
 #include <SFML/Window/Keyboard.hpp>
 
-Player::Player(float x, float y, int hp) : Entity(x, y, sf::Color::Blue, hp), attackTimer(0.f) {}
+Player::Player(float x, float y, int hp) : Entity(x, y, sf::Color::Blue, hp), attackTimer(0.f) {
+    shape.setOrigin(35 / 2, 35 / 2);
+    directionShape.setSize({ 15, 15 });
+    directionShape.setOrigin(15 / 2, 15 / 2);
+    directionShape.setPosition(pos.x, pos.y);
+    directionShape.setFillColor(sf::Color::Red);
+}
 
 void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
     sf::Vector2f movement(0.f, 0.f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) movement.y -= SPEED * deltaTime;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) movement.y += SPEED * deltaTime;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) movement.x -= SPEED * deltaTime;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) movement.x += SPEED * deltaTime;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+        movement.y -= SPEED * deltaTime;
+        direction = "SOUTH";
+        directionShape.setPosition(pos.x, pos.y - 10);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        movement.y += SPEED * deltaTime;
+        direction = "NORTH";
+        directionShape.setPosition(pos.x, pos.y + 10);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+        movement.x -= SPEED * deltaTime;
+        direction = "WEST";
+        directionShape.setPosition(pos.x - 10, pos.y);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        movement.x += SPEED * deltaTime;
+        direction = "EAST";
+        directionShape.setPosition(pos.x + 10, pos.y);
+    }
+    while (true) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            directionShape.setPosition(pos.x + 10, pos.y - 10);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+            directionShape.setPosition(pos.x - 10, pos.y - 10);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            directionShape.setPosition(pos.x + 10, pos.y + 10);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+            directionShape.setPosition(pos.x - 10, pos.y + 10);
+        }
+        break;
+    } // Boucle pour ranger les diagonales pour le shape rouge
+
 
     sf::Vector2f newPosition = shape.getPosition() + movement;
     sf::FloatRect newBounds(newPosition, shape.getSize());
@@ -28,6 +66,8 @@ void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
         isWalkable(newBounds.left, newBounds.top + newBounds.height - 1) &&
         isWalkable(newBounds.left + newBounds.width - 1, newBounds.top + newBounds.height - 1)) {
         shape.move(movement);
+        pos = shape.getPosition();
+        directionShape.move(movement);
     }
 
     attackTimer += deltaTime;
@@ -35,6 +75,8 @@ void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
         attack(enemies);
         attackTimer = 0.f;
     }
+
+    std::cout << direction << std::endl;
 }
 
 void Player::attack(std::vector<Entity*>enemies) {
@@ -52,4 +94,5 @@ void Player::attack(std::vector<Entity*>enemies) {
 
 void Player::draw(sf::RenderWindow& window) {
     window.draw(shape);
+    window.draw(directionShape);
 }

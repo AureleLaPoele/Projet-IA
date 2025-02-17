@@ -51,6 +51,12 @@ int main() {
         }
         window.display();
     }
+    for (const auto& player : players) {
+        delete player;
+    }
+    for (const auto& enemy : enemies) {
+        delete enemy;
+    }
     return 0;
 }
 
