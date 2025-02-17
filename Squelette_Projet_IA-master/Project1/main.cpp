@@ -6,6 +6,11 @@
 #include <vector>
 
 
+/* Idées :
+- faire une fonction dans le main qui vérif la direction du player et celle du boo
+- faire une méthode qui retourne la direction du joueur
+*/
+
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
