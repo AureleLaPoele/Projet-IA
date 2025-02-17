@@ -1,13 +1,7 @@
 ﻿  main.cpp
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\main.cpp(33,17): error C2664: 'void Player::update(float,Grid &)' : impossible de convertir l'argument 2 de 'Grid *' en 'Grid &'
-      C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Player.hpp(10,10):
-      voir la déclaration de 'Player::update'
-      C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\main.cpp(33,17):
-      lors de la tentative de mise en correspondance de la liste des arguments '(float, Grid *)'
-  
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\main.cpp(34,8): error C2664: 'void Boo::update(float,Grid &)' : impossible de convertir l'argument 2 de 'Grid *' en 'Grid &'
-      C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Boo.h(14,7):
-      voir la déclaration de 'Boo::update'
-      C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\main.cpp(34,8):
-      lors de la tentative de mise en correspondance de la liste des arguments '(float, Grid *)'
-  
+  Génération de code en cours
+  1 of 358 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Fin de la génération du code
+  Project1.vcxproj -> C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\x64\Release\Project1.exe

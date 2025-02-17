@@ -9,9 +9,9 @@ class Boo : public Enemy {
 public:
 	float detectionRadius;
 
-	Boo(float x, float y, float radius);
+	Boo(float x, float y, float radius, int hp);
 
-	void update(float deltaTime, Grid& grid) override;
+	void update(float deltaTime, Grid& grid, std::vector<Entity*> players) override;
 	bool detectPlayer(float playerPosX, float playerPosY);
 	void draw(sf::RenderWindow& window) override;
 };
