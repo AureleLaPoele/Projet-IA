@@ -22,9 +22,8 @@ void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
 	}
 }
 
-void move(Player& player) {
-	
-
+bool hasSameDirection(Player& player) {
+	if (player.direction == direction)
 }
 
 bool Boo::detectPlayer(float playerPosX, float playerPosY) {
