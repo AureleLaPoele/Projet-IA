@@ -13,6 +13,7 @@ public:
     float attackTimer;
 
     Player(float x, float y, int hp);
+    ~Player();
     void attack(std::vector<Entity*> enemies);
     void update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) override;
     void draw(sf::RenderWindow& window) override;

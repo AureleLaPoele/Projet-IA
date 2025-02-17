@@ -1,10 +1,14 @@
 #include "Boo.h"
 #include "Player.hpp"
+#include <iostream>
 
 Boo::Boo(float x, float y, float radius, int hp) : Enemy(x, y, hp), state(BooState::Idle) {
 	detectionRadius = radius;
 }
 
+Boo::~Boo() {
+	std::cout << "Un boo est détruit\n";
+}
 void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
 	switch (state) {
 	case BooState::Idle:
@@ -16,6 +20,11 @@ void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
 	case BooState::Escape:
 		break;
 	}
+}
+
+void move(Player& player) {
+	
+
 }
 
 bool Boo::detectPlayer(float playerPosX, float playerPosY) {

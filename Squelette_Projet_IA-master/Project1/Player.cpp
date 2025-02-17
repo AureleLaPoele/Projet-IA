@@ -12,6 +12,10 @@ Player::Player(float x, float y, int hp) : Entity(x, y, sf::Color::Blue, hp), at
     directionShape.setFillColor(sf::Color::Red);
 }
 
+Player::~Player() {
+    std::cout << "Le joueur est détruit\n";
+}
+
 void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
     sf::Vector2f movement(0.f, 0.f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
@@ -80,8 +84,6 @@ void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
         attack(enemies);
         attackTimer = 0.f;
     }
-
-    std::cout << direction << std::endl;
 }
 
 void Player::attack(std::vector<Entity*>enemies) {
