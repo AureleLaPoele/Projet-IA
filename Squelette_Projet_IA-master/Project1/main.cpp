@@ -23,6 +23,9 @@ int main() {
 
     std::vector<Entity*> enemies;
     enemies.push_back(new Boo(100, 100, 100, 25));
+	enemies.push_back(new Monster(700, 500, 50));
+    
+
 
     Grid grid;
     grid.loadFromFile("map.txt");
