@@ -4,9 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include "Enemy.hpp"
 
+enum class BooState { Idle, Chase, Freeze, Escape };
 
 class Boo : public Enemy {
 public:
+	BooState state;
 	float detectionRadius;
 
 	Boo(float x, float y, float radius, int hp);
