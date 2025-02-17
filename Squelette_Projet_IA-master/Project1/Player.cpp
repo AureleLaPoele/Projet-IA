@@ -5,7 +5,7 @@
 #include <SFML/Window/Keyboard.hpp>
 
 Player::Player(float x, float y, int hp) : Entity(x, y, sf::Color::Blue, hp), attackTimer(0.f) {
-    shape.setOrigin(35 / 2, 35 / 2);
+    shape.setOrigin(shape.getSize().x / 2, shape.getSize().y / 2);
     directionShape.setSize({ 15, 15 });
     directionShape.setOrigin(15 / 2, 15 / 2);
     directionShape.setPosition(pos.x, pos.y);
@@ -34,6 +34,8 @@ void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
         direction = "EAST";
         directionShape.setPosition(pos.x + 10, pos.y);
     }
+
+    // Boucle pour ranger les diagonales pour le shape rouge
     while (true) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
             directionShape.setPosition(pos.x + 10, pos.y - 10);
@@ -48,8 +50,7 @@ void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
             directionShape.setPosition(pos.x - 10, pos.y + 10);
         }
         break;
-    } // Boucle pour ranger les diagonales pour le shape rouge
-
+    } 
 
     sf::Vector2f newPosition = shape.getPosition() + movement;
     sf::FloatRect newBounds(newPosition, shape.getSize());
@@ -61,14 +62,18 @@ void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
         return gridX >= 0 && gridX < GRID_WIDTH && gridY >= 0 && gridY < GRID_HEIGHT && grid.getCell(gridX, gridY).walkable;
         };
 
-    if (isWalkable(newBounds.left, newBounds.top) &&
-        isWalkable(newBounds.left + newBounds.width - 1, newBounds.top) &&
-        isWalkable(newBounds.left, newBounds.top + newBounds.height - 1) &&
-        isWalkable(newBounds.left + newBounds.width - 1, newBounds.top + newBounds.height - 1)) {
+    float halfWidth = shape.getSize().x / 2;
+    float halfHeight = shape.getSize().y / 2;
+
+    if (isWalkable(newPosition.x - halfWidth, newPosition.y - halfHeight) &&
+        isWalkable(newPosition.x + halfWidth - 1, newPosition.y - halfHeight) &&
+        isWalkable(newPosition.x - halfWidth, newPosition.y + halfHeight - 1) &&
+        isWalkable(newPosition.x + halfWidth - 1, newPosition.y + halfHeight - 1)) {
         shape.move(movement);
         pos = shape.getPosition();
         directionShape.move(movement);
     }
+
 
     attackTimer += deltaTime;
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && attackTimer >= ATTACK_COOLDOWN) {
