@@ -13,6 +13,7 @@ public:
 
 	void update(float deltaTime, Grid& grid) override;
 	bool detectPlayer(float playerPosX, float playerPosY);
+	void draw(sf::RenderWindow& window) override;
 };
 
 #endif

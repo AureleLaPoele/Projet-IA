@@ -15,8 +15,8 @@ int main() {
 
     Player* player = new Player(200, 400);
     Boo* boo = new Boo(100, 100, 100);
-    Grid grid;
-    grid.loadFromFile("map.txt");
+    Grid* grid = new Grid();
+    grid->loadFromFile("map.txt");
 
     sf::Clock clock;
 
@@ -34,9 +34,9 @@ int main() {
 		boo->update(deltaTime, grid); 
 
         window.clear();
-        grid.draw(window);
-        window.draw(boo->shape);
-        window.draw(player->shape);
+        grid->draw(window);
+        boo->draw(window);
+        player->draw(window);
         window.display();
     }
     return 0;

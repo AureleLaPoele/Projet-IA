@@ -11,3 +11,7 @@ void Boo::update(float deltaTime, Grid& grid) {
 bool Boo::detectPlayer(float playerPosX, float playerPosY) {
 	return true;
 }
+
+void Boo::draw(sf::RenderWindow& window) {
+	window.draw(shape);
+}

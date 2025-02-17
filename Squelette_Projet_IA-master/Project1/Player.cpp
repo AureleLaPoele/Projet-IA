@@ -29,6 +29,6 @@ void Player::update(float deltaTime, Grid& grid) {
     }
 }
 
-void Player::draw(sf::RenderWindow window) {
-
+void Player::draw(sf::RenderWindow& window) {
+    window.draw(shape);
 }
