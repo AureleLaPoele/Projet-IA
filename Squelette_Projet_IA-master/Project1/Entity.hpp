@@ -4,9 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include "Grid.hpp"
 
+enum class Direction { NORTH, SOUTH, EAST, WEST, NONE };
+
 class Entity {
 public:
     sf::RectangleShape shape;
+    sf::Texture texture;
     sf::Vector2f velocity;
     sf::Vector2f pos;
     int health;

@@ -23,7 +23,7 @@ int main() {
 
     std::vector<Entity*> enemies;
     enemies.push_back(new Boo(100, 100, 100, 25));
-	enemies.push_back(new Monster(700, 500, 50));
+	//enemies.push_back(new Monster(700, 500, 50));
     
 
 
@@ -45,6 +45,7 @@ int main() {
         window.clear();
 
         grid.draw(window);
+
         for (const auto& player : players) {
             if (player->isAlive()) {
                 player->update(deltaTime, grid, enemies);
