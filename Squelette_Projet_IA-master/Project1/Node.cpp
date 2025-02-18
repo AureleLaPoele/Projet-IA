@@ -1,6 +1,7 @@
-
+#include "Player.hpp"
 #include <unordered_map>
 #include <string>
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -34,7 +35,7 @@ public:
     void Addmonster(unique_ptr<BTNode> monster) {
         monsters.push_back(move(monster));
     }
-    NodeMonster execute() override {
+    NodeMonster execute() {
         for (auto& monster : monsters) {
             if (monster->execute() == NodeMonster::FAILURE) {
                 return NodeMonster::FAILURE;
@@ -51,10 +52,10 @@ public:
     void Addmonster(unique_ptr<BTNode> monster) {
         monsters.push_back(move(monster));
     }
-    NodeMonster execute() override {
+    NodeMonster execute() {
         for (auto& monster : monsters) {
             if (monster->execute() == NodeMonster::SUCCESS) {
-                return NodeMonster::SUCCESS;
+                return NodeMonster::SUCCESS; 
             }
         }
         return NodeMonster::FAILURE;
@@ -67,44 +68,29 @@ public:
     string key;
     int expectedValue;
     ConditionNode(Blackboard& bb, const string& key, int value) : blackboard(bb), key(key), expectedValue(value) {}
-    NodeMonster execute() override {
-        return (blackboard.GetValue(key) == expectedValue) ? NodeMonster::SUCCESS : NodeMonster::FAILURE;
+    NodeMonster execute() {
+        return (blackboard.GetValue(key) < expectedValue) ? NodeMonster::SUCCESS : NodeMonster::FAILURE;
     }
 };
 
-//========================================DASH=========================================
-class ActionNodeDash : public BTNode {
+class ActionNode : public BTNode {
 private:
-    string actionDash;
+    string actions;
 public:
-    ActionNodeDash(string name) : actionDash(name) {}
+    ActionNode(string name) : actions(name) {}
     NodeMonster execute() override {
-        cout << "Action: " << actionDash << endl;
+		if (actions == "Dash") {
+			cout << "actions: " << endl;
+		}
+		else if (actions == "AA") {
+			cout << "ActionAA: " << endl;
+		}
+		else if (actions == "TP") {
+			cout << "ActionTP: " << endl;
+		}
+		else if (actions == "Patrouille") {
+			cout << "ActionPatrouille: " << endl;
+		}
         return NodeMonster::SUCCESS;
     }
-};
-
-
-//========================================AA=========================================
-class ActionNodeAttack : public BTNode {
-private:
-	string actionAA;   
-public: 
-	ActionNodeAttack(string name) : actionAA(name) {}
-	NodeMonster execute() override {
-		cout << "Action: " << actionAA << endl;
-		return NodeMonster::SUCCESS;
-	}
-};
-
-//========================================SE TP ET LANCE UN PROJECTILE====================
-class ActionNodeTP : public BTNode {
-private:
-	string actionTP;
-public:
-	ActionNodeTP(string name) : actionTP(name) {}
-	NodeMonster execute() override {
-		cout << "Action: " << actionTP << endl;
-		return NodeMonster::SUCCESS;
-	}
 };

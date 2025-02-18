@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include "Player.hpp"
 
 using namespace std;
 
@@ -35,32 +36,16 @@ public:
 class ConditionNode : public BTNode {
 public:
 	ConditionNode(Blackboard& bb, const string& key, int value) : blackboard(bb), key(key), expectedValue(value) {}
-	NodeMonster execute() override { return NodeMonster(); }
+	NodeMonster execute()  override { return NodeMonster(); }
 	Blackboard& blackboard;
 	string key;
 	int expectedValue;
 };
 
-class ActionNodeDash : public BTNode {
+class ActionNode : public BTNode {
 public:
-	ActionNodeDash(string name) : actionDash(name) {}
+	ActionNode(string name) : actionDash(name) {}
 	NodeMonster execute() override { return NodeMonster(); }
 private:
 	string actionDash;
-};
-
-class ActionNodeAttack : public BTNode {
-public:
-	ActionNodeAttack(string name) : actionAA(name) {}
-	NodeMonster execute() override { return NodeMonster(); }
-private:
-	string actionAA;
-};
-
-class ActionNodeTP : public BTNode {
-public:
-	ActionNodeTP(string name) : actionTP(name) {}
-	NodeMonster execute() override { return NodeMonster(); }
-private:
-	string actionTP;
 };
