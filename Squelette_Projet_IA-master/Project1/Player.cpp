@@ -4,7 +4,7 @@
 #include <iostream>
 #include <SFML/Window/Keyboard.hpp>
 
-Player::Player(float x, float y, int hp) : Entity(x, y, sf::Color::Blue, hp), attackTimer(0.f) {
+Player::Player(float x, float y, int hp) : Entity(x, y, sf::Color::Blue, hp), attackTimer(0.f), direction(Direction::NONE) {
     shape.setOrigin(shape.getSize().x / 2, shape.getSize().y / 2);
     directionShape.setSize({ 15, 15 });
     directionShape.setOrigin(15 / 2, 15 / 2);
@@ -18,43 +18,43 @@ Player::~Player() {
 
 void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
     sf::Vector2f movement(0.f, 0.f);
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-    //    movement.y -= SPEED * deltaTime;
-    //    direction = "SOUTH";
-    //    directionShape.setPosition(pos.x, pos.y - 10);
-    //}
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-    //    movement.y += SPEED * deltaTime;
-    //    direction = "NORTH";
-    //    directionShape.setPosition(pos.x, pos.y + 10);
-    //}
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-    //    movement.x -= SPEED * deltaTime;
-    //    direction = "WEST";
-    //    directionShape.setPosition(pos.x - 10, pos.y);
-    //}
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-    //    movement.x += SPEED * deltaTime;
-    //    direction = "EAST";
-    //    directionShape.setPosition(pos.x + 10, pos.y);
-    //}
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+        movement.y -= SPEED * deltaTime;
+        direction = Direction::SOUTH;
+        directionShape.setPosition(pos.x, pos.y - 10);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        movement.y += SPEED * deltaTime;
+        direction = Direction::NORTH;
+        directionShape.setPosition(pos.x, pos.y + 10);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+        movement.x -= SPEED * deltaTime;
+        direction = Direction::WEST;
+        directionShape.setPosition(pos.x - 10, pos.y);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        movement.x += SPEED * deltaTime;
+        direction = Direction::EAST;
+        directionShape.setPosition(pos.x + 10, pos.y);
+    }
 
-    //// Boucle pour ranger les diagonales pour le shape rouge
-    //while (true) {
-    //    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-    //        directionShape.setPosition(pos.x + 10, pos.y - 10);
-    //    }
-    //    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-    //        directionShape.setPosition(pos.x - 10, pos.y - 10);
-    //    }
-    //    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-    //        directionShape.setPosition(pos.x + 10, pos.y + 10);
-    //    }
-    //    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-    //        directionShape.setPosition(pos.x - 10, pos.y + 10);
-    //    }
-    //    break;
-    //} 
+    // Boucle pour ranger les diagonales pour le shape rouge
+    while (true) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            directionShape.setPosition(pos.x + 10, pos.y - 10);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+            directionShape.setPosition(pos.x - 10, pos.y - 10);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            directionShape.setPosition(pos.x + 10, pos.y + 10);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+            directionShape.setPosition(pos.x - 10, pos.y + 10);
+        }
+        break;
+    } 
 
     sf::Vector2f newPosition = shape.getPosition() + movement;
     sf::FloatRect newBounds(newPosition, shape.getSize());

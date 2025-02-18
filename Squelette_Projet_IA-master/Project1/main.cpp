@@ -19,7 +19,7 @@ int main() {
     window.setFramerateLimit(60);
 
     std::vector<Entity*> players;
-    players.push_back(new Player(200, 400, 100));
+    players.push_back(new Player(600, 100, 100));
 
     std::vector<Entity*> enemies;
     enemies.push_back(new Boo(100, 100, 100, 25));

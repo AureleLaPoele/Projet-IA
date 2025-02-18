@@ -5,8 +5,7 @@
 
 class Player : public Entity {
 public:
-
-    std::string direction;
+    Direction direction;
     sf::RectangleShape directionShape;
     static constexpr float SPEED = 200.0f;
     static constexpr int DAMAGE = 20;
