@@ -78,7 +78,6 @@ void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
         directionShape.move(movement);
     }
 
-
     attackTimer += deltaTime;
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && attackTimer >= ATTACK_COOLDOWN) {
         attack(enemies);

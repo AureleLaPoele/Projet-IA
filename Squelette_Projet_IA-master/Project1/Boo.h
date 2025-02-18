@@ -9,6 +9,10 @@ enum class BooState { Idle, Chase, HalfChase, Freeze, Escape };
 
 class Boo : public Enemy {
 public:
+	sf::Texture booChaseTexture;
+	sf::Texture booFreezeTexture;
+	sf::Sprite booChase;
+	sf::Sprite booFreeze;
 	Direction direction;
 	BooState state;
 	float speed;
@@ -21,6 +25,7 @@ public:
 	void draw(sf::RenderWindow& window) override;
 	bool isSeenByPlayer(const Player& player);
 	void moveTowardsPlayer(const Player& player, float speed, float deltaTime);
+	void changeState(BooState newState);
 };
 
 #endif

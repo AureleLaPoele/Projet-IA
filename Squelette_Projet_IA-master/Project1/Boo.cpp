@@ -3,6 +3,20 @@
 
 Boo::Boo(float x, float y, float radius, int hp) : Enemy(x, y, hp), state(BooState::Idle), direction(Direction::EAST) {
 	detectionRadius = radius;
+    if (!booChaseTexture.loadFromFile("assets/Boo/Boo_Chase.png")) {
+        std::cerr << "Erreur lors du chargement de la texture du Boo qui chasse.\n";
+    }
+    if (!booFreezeTexture.loadFromFile("assets/Boo/Boo_Freeze.png")) {
+        std::cerr << "Erreur lors du chargement de la texture du Boo qui se cache.\n";
+    }
+    booChase.setTexture(booChaseTexture);
+    booFreeze.setTexture(booFreezeTexture);
+    booChase.setPosition(pos);
+    booFreeze.setPosition(pos);
+    booChase.setOrigin(shape.getSize().x / 2, shape.getSize().y / 2);
+    booFreeze.setOrigin(shape.getSize().x / 2, shape.getSize().y / 2);
+    booChase.setScale(2, 2);
+    booFreeze.setScale(2, 2);
 }
 
 Boo::~Boo() {
@@ -24,35 +38,48 @@ void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
         Player* player = dynamic_cast<Player*>(entity);
         if (player) {
             if (isSeenByPlayer(*player)) {
-                state = BooState::Freeze; // Si Boo est vu, il se fige
+                changeState(BooState::Freeze);
+                //state = BooState::Freeze; // Si Boo est vu, il se fige
             }
             else {
-                state = BooState::Chase; // Sinon, il chasse le joueur
+                changeState(BooState::Chase);
+                //state = BooState::Chase; // Sinon, il chasse le joueur
             }
 
             switch (state) {
             case BooState::Idle:
-                // Ne rien faire
+                shape.setFillColor(sf::Color::Green);
                 break;
 
             case BooState::Chase:
-                moveTowardsPlayer(*player, 50.0f, deltaTime); // Vitesse = 50 unités/sec
-                //std::cout << "Actuellement entrain de chase\n";
+                moveTowardsPlayer(*player, 50.0f, deltaTime);
+                shape.setFillColor(sf::Color::Red);
                 break;
 
             case BooState::Freeze:
-                // Ne pas bouger
+                shape.setFillColor(sf::Color::White);
                 break;
 
             case BooState::Escape:
-                // Logique d'évasion si nécessaire
                 break;
             }
         }
     }
-    std::cout << toString(state) << std::endl;
-    shape.setPosition(pos);
-    pos = shape.getPosition();
+    //std::cout << toString(state) << std::endl;
+    booChase.setPosition(pos);
+    booFreeze.setPosition(pos);
+    pos = booChase.getPosition();
+    pos = booFreeze.getPosition();
+}
+
+void Boo::changeState(BooState newState) {
+    if (state != newState && newState == BooState::Chase) {
+        state = BooState::Chase;
+        std::cout << "Le boo vous poursuit\n";
+    } else if (state != newState && newState == BooState::Freeze) {
+        state = BooState::Freeze;
+        std::cout << "Le boo se cache\n";
+    }
 }
 
 bool Boo::isSeenByPlayer(const Player& player) {
@@ -81,12 +108,10 @@ void Boo::moveTowardsPlayer(const Player& player, float speed, float deltaTime) 
 
     pos.x += dx * speed * deltaTime;
     pos.y += dy * speed * deltaTime;
-
-    //std::cout << "Le boo bouge\n";
-    std::cout << "Boo position : (" << pos.x << ", " << pos.y << ")\n";
 }
 
 
 void Boo::draw(sf::RenderWindow& window) {
-	window.draw(shape);
+    if (state == BooState::Chase) window.draw(booChase);
+    else if (state == BooState::Freeze) window.draw(booFreeze);
 }
