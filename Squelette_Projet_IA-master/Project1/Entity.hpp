@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "Grid.hpp"
 
+using namespace std;
+using namespace sf;
+
 enum class Direction { NORTH, SOUTH, EAST, WEST, NONE };
 
 class Entity {

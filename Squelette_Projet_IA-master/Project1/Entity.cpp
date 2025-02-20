@@ -1,5 +1,8 @@
 #include "Entity.hpp"
 
+using namespace std;
+using namespace sf;
+
 Entity::Entity(float x, float y, sf::Color color, int hp) : health(hp) {
     pos.x = x;
     pos.y = y;
