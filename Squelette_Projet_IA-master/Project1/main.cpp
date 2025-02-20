@@ -2,6 +2,7 @@
 #include "Player.hpp"
 #include "Boo.h"
 #include "Grid.hpp"
+#include "Chaser.hpp"
 #include "Monster.hpp"
 #include <vector>
 
@@ -23,10 +24,9 @@ int main() {
 
     std::vector<Entity*> enemies;
     enemies.push_back(new Boo(100, 100, 100, 25, 50.0f));
+    enemies.push_back(new Chaser(200, 200,100));
 	//enemies.push_back(new Monster(700, 500, 50));
     
-
-
     Grid grid;
     grid.loadFromFile("map.txt");
 

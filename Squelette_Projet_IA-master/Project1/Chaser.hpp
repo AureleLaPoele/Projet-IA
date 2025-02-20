@@ -20,17 +20,6 @@ public:
 
     void SetEnergy(bool energy) { hasEnergy = energy; }
     void Reduceenergies() { energies = max(0.f, energies - 1.2f);}
-    void Setenergies(int level) { energies = level; }
-};
-
-class Chaser : public Entity {
-private:
-    State state;
-    GOAPPlanner planner;
-public:
-	Chaser(float x, float y, int hp);
-	void update(float deltaTime, Grid& grid, std::vector<Entity*> players) override;
-	void draw(RenderWindow& window) override;
 };
 
 class Action {
@@ -45,43 +34,52 @@ enum class Goal {
     Chaser,
 };
 
+class EnergyAction : public Action {
+public:
+    bool CanExecute(const State& state) override { return state.energy() && state.Getenergies() > 0; };
+    void Execute(State& state) override;
+};
+
+class SearchEnergyAction : public Action {
+public:
+    bool CanExecute(const State& state) override { return !state.energy(); };
+    void Execute(State& state) override;
+};
+
+class SearchPlayerAction : public Action {
+public:
+    bool CanExecute(const State& state) override { return state.Getenergies() > 0; };
+    void Execute(State& state) override;
+};
+
 class GOAPPlanner { 
 public:
     vector<Action*> Plan(const State& initialState, Goal goal) {
         vector<Action*> plan;
 
         if (goal == Goal::Manger) {
-            if (initialState.Getenergies() > 0 && !initialState.energy()) {
+            if (initialState.Getenergies() > 0 && initialState.Getenergies()<=20 && !initialState.energy()) {
                 plan.push_back(new SearchEnergyAction());
                 plan.push_back(new EnergyAction());
             }
-            else if (goal == Goal::Chaser) {
-                if (initialState.Getenergies() == 100) {
-                    plan.push_back(new SearchPlayerAction());
-                }
+        }
+        else if (goal == Goal::Chaser) {
+            if (initialState.Getenergies() >= 20) {
+                plan.push_back(new SearchPlayerAction()); 
             }
             return plan;
         }
     }
 };
 
-//class EnergyAction : public Action {
-//public:
-//    bool CanExecute(const State& state) override { return state.energy() && state.Getenergies() > 0; };
-//    void Execute(State& state) override {}
-//};
-//
-//class SearchEnergyAction : public Action {
-//public:
-//    bool CanExecute(const State& state) override { return !state.energy(); };
-//    void Execute(State& state) override {}
-//};
-//
-//class SearchPlayerAction : public Action { 
-//public:
-//    bool CanExecute(const State& state) override { return state.Getenergies() > 0; };
-//	void Execute(State& state) override {} 
-//};
-
+class Chaser : public Entity {
+private:
+    State state;
+    GOAPPlanner planner; 
+public:
+    Chaser(float x, float y, int hp);
+    void update(float deltaTime, Grid& grid, std::vector<Entity*> players) override;
+    void draw(RenderWindow& window) override;
+};
 
 #endif

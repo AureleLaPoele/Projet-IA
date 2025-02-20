@@ -1,26 +1,2 @@
-﻿  Chaser.cpp
-C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\Project1\Chaser.hpp(23,46): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
-  (compiler le fichier source 'Chaser.cpp')
-  
-C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\Project1\Chaser.hpp(29,17): error C3646: 'planner' : spécificateur de substitution inconnu
-  (compiler le fichier source 'Chaser.cpp')
-  
-C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\Project1\Chaser.hpp(29,5): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut
-  (compiler le fichier source 'Chaser.cpp')
-  
-C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\Project1\Chaser.hpp(55,36): error C2061: erreur de syntaxe : identificateur 'SearchEnergyAction'
-  (compiler le fichier source 'Chaser.cpp')
-  
-C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\Project1\Chaser.hpp(56,36): error C2061: erreur de syntaxe : identificateur 'EnergyAction'
-  (compiler le fichier source 'Chaser.cpp')
-  
-C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\Project1\Chaser.hpp(60,40): error C2061: erreur de syntaxe : identificateur 'SearchPlayerAction'
-  (compiler le fichier source 'Chaser.cpp')
-  
-C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\Project1\Chaser.cpp(21,7): error C2011: 'GOAPPlanner' : redéfinition du type 'class'
-      C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\Project1\Chaser.hpp(48,7):
-      voir la déclaration de 'GOAPPlanner'
-  
-  Enemy.cpp
-  Player.cpp
-  Génération de code en cours...
+﻿  main.cpp
+  Project1.vcxproj -> C:\Users\malvesgama\Downloads\Projet-IA\Squelette_Projet_IA-master\x64\Debug\Project1.exe
