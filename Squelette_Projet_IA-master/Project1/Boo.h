@@ -18,9 +18,8 @@ public:
 	float speed;
 	float detectionRadius;
 
-	Boo(float x, float y, float radius, int hp);
+	Boo(float x, float y, float radius, int hp, float speed);
 	~Boo();
-	std::string toString(Direction d) const;
 	void update(float deltaTime, Grid& grid, std::vector<Entity*> players) override;
 	void draw(sf::RenderWindow& window) override;
 	bool isSeenByPlayer(const Player& player);

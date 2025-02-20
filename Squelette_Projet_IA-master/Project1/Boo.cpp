@@ -1,7 +1,7 @@
 #include "Boo.h"
 #include <iostream>
 
-Boo::Boo(float x, float y, float radius, int hp) : Enemy(x, y, hp), state(BooState::Idle), direction(Direction::EAST) {
+Boo::Boo(float x, float y, float radius, int hp, float speed) : Enemy(x, y, hp), state(BooState::Idle), direction(Direction::EAST), speed(speed) {
 	detectionRadius = radius;
     if (!booChaseTexture.loadFromFile("assets/Boo/Boo_Chase.png")) {
         std::cerr << "Erreur lors du chargement de la texture du Boo qui chasse.\n";
@@ -23,17 +23,6 @@ Boo::~Boo() {
 	std::cout << "Un boo est détruit\n";
 }
 
-std::string Boo::toString(Direction d) const {
-    switch (d) {
-        case Direction::NORTH:   return "North";
-        case Direction::SOUTH:  return "South";
-        case Direction::EAST: return "East";
-        case Direction::WEST: return "West";
-        case Direction::NONE: return "None";
-    }
-    return "Unknown";
-}
-
 void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
     for (auto entity : players) {
         Player* player = dynamic_cast<Player*>(entity);
@@ -53,7 +42,7 @@ void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
                 break;
 
             case BooState::Chase:
-                moveTowardsPlayer(*player, 50.0f, deltaTime);
+                moveTowardsPlayer(*player, speed, deltaTime);
                 shape.setFillColor(sf::Color::Red);
                 break;
 
@@ -66,7 +55,6 @@ void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
             }
         }
     }
-    std::cout << toString(direction) << std::endl;
     booChase.setPosition(pos);
     booFreeze.setPosition(pos);
     pos = booChase.getPosition();
