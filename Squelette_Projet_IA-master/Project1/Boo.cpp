@@ -23,12 +23,13 @@ Boo::~Boo() {
 	std::cout << "Un boo est détruit\n";
 }
 
-std::string Boo::toString(BooState s) const {
-    switch (s) {
-        case BooState::Idle:   return "Idle";
-        case BooState::Chase:  return "Chase";
-        case BooState::Freeze: return "Freeze";
-        case BooState::Escape: return "Escape";
+std::string Boo::toString(Direction d) const {
+    switch (d) {
+        case Direction::NORTH:   return "North";
+        case Direction::SOUTH:  return "South";
+        case Direction::EAST: return "East";
+        case Direction::WEST: return "West";
+        case Direction::NONE: return "None";
     }
     return "Unknown";
 }
@@ -65,11 +66,13 @@ void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
             }
         }
     }
-    //std::cout << toString(state) << std::endl;
+    std::cout << toString(direction) << std::endl;
     booChase.setPosition(pos);
     booFreeze.setPosition(pos);
     pos = booChase.getPosition();
     pos = booFreeze.getPosition();
+    setBooOrientation();
+
 }
 
 void Boo::changeState(BooState newState) {
@@ -85,9 +88,9 @@ void Boo::changeState(BooState newState) {
 bool Boo::isSeenByPlayer(const Player& player) {
     switch (player.direction) {
     case Direction::NORTH:
-        return (this->pos.y < player.pos.y); // Si Boo est au-dessus du joueur
+        return (this->pos.y > player.pos.y); // Si Boo est au-dessus du joueur
     case Direction::SOUTH:
-        return (this->pos.y > player.pos.y); // Si Boo est en dessous du joueur
+        return (this->pos.y < player.pos.y); // Si Boo est en dessous du joueur
     case Direction::EAST:
         return (this->pos.x > player.pos.x); // Si Boo est à droite du joueur
     case Direction::WEST:
@@ -108,8 +111,29 @@ void Boo::moveTowardsPlayer(const Player& player, float speed, float deltaTime) 
 
     pos.x += dx * speed * deltaTime;
     pos.y += dy * speed * deltaTime;
+
+    setDirection(dx, dy);
 }
 
+void Boo::setDirection(float dx, float dy) {
+    if (dx > 0) {
+        direction = Direction::EAST;
+    }
+    else if (dx < 0) {
+        direction = Direction::WEST;
+    }
+}
+
+void Boo::setBooOrientation() {
+    if (direction == Direction::EAST) {
+        booChase.setScale(-2, 2);
+        booFreeze.setScale(-2, 2);
+    }
+    else {
+        booChase.setScale(2, 2);
+        booFreeze.setScale(2, 2);
+    }
+}
 
 void Boo::draw(sf::RenderWindow& window) {
     if (state == BooState::Chase) window.draw(booChase);

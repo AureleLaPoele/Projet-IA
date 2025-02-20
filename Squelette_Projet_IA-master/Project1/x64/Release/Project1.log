@@ -1,7 +1,15 @@
 ﻿  Boo.cpp
   Génération de code en cours
-  2 of 364 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  2 of 367 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
+Enemy.obj : warning LNK4020: un enregistrement de type dans '' est endommagé ; certains symboles et types ne sont peut-être pas accessibles à partir du débogueur
+Entity.obj : warning LNK4020: un enregistrement de type dans '' est endommagé ; certains symboles et types ne sont peut-être pas accessibles à partir du débogueur
+Monster.obj : warning LNK4020: un enregistrement de type dans '' est endommagé ; certains symboles et types ne sont peut-être pas accessibles à partir du débogueur
+main.obj : warning LNK4020: un enregistrement de type dans '' est endommagé ; certains symboles et types ne sont peut-être pas accessibles à partir du débogueur
+Player.obj : warning LNK4020: un enregistrement de type dans '' est endommagé ; certains symboles et types ne sont peut-être pas accessibles à partir du débogueur
+Boo.obj : warning LNK4020: un enregistrement de type dans '' est endommagé ; certains symboles et types ne sont peut-être pas accessibles à partir du débogueur
+Node.obj : warning LNK4020: un enregistrement de type dans '' est endommagé ; certains symboles et types ne sont peut-être pas accessibles à partir du débogueur
+Grid.obj : warning LNK4020: un enregistrement de type dans '' est endommagé ; certains symboles et types ne sont peut-être pas accessibles à partir du débogueur
   Project1.vcxproj -> C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\x64\Release\Project1.exe
