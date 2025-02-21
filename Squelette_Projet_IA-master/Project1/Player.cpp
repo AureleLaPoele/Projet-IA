@@ -4,12 +4,12 @@
 #include <iostream>
 #include <SFML/Window/Keyboard.hpp>
 
-Player::Player(float x, float y, int hp) : Entity(x, y, sf::Color::Blue, hp), attackTimer(0.f), direction(Direction::NONE) {
+Player::Player(float x, float y, int hp) : Entity(x, y, Color::Blue, hp), attackTimer(0.f), direction(Direction::NONE) {
     shape.setOrigin(shape.getSize().x / 2, shape.getSize().y / 2);
     directionShape.setSize({ 15, 15 });
     directionShape.setOrigin(15 / 2, 15 / 2);
     directionShape.setPosition(pos.x, pos.y);
-    directionShape.setFillColor(sf::Color::Red);
+    directionShape.setFillColor(Color::Red);
 }
 
 Player::~Player() {
@@ -17,23 +17,23 @@ Player::~Player() {
 }
 
 void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
-    sf::Vector2f movement(0.f, 0.f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+    Vector2f movement(0.f, 0.f);
+    if (Keyboard::isKeyPressed(Keyboard::Z)) {
         movement.y -= SPEED * deltaTime;
         direction = Direction::SOUTH;
         directionShape.setPosition(pos.x, pos.y - 10);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    if (Keyboard::isKeyPressed(Keyboard::S)) {
         movement.y += SPEED * deltaTime;
         direction = Direction::NORTH;
         directionShape.setPosition(pos.x, pos.y + 10);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+    if (Keyboard::isKeyPressed(Keyboard::Q)) {
         movement.x -= SPEED * deltaTime;
         direction = Direction::WEST;
         directionShape.setPosition(pos.x - 10, pos.y);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    if (Keyboard::isKeyPressed(Keyboard::D)) {
         movement.x += SPEED * deltaTime;
         direction = Direction::EAST;
         directionShape.setPosition(pos.x + 10, pos.y);
@@ -41,23 +41,23 @@ void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
 
     // Boucle pour ranger les diagonales pour le shape rouge
     while (true) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (Keyboard::isKeyPressed(Keyboard::Z) && Keyboard::isKeyPressed(Keyboard::D)) {
             directionShape.setPosition(pos.x + 10, pos.y - 10);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+        if (Keyboard::isKeyPressed(Keyboard::Z) && Keyboard::isKeyPressed(Keyboard::Q)) {
             directionShape.setPosition(pos.x - 10, pos.y - 10);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (Keyboard::isKeyPressed(Keyboard::S) && Keyboard::isKeyPressed(Keyboard::D)) {
             directionShape.setPosition(pos.x + 10, pos.y + 10);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+        if (Keyboard::isKeyPressed(Keyboard::S) && Keyboard::isKeyPressed(Keyboard::Q)) {
             directionShape.setPosition(pos.x - 10, pos.y + 10);
         }
         break;
     } 
 
-    sf::Vector2f newPosition = shape.getPosition() + movement;
-    sf::FloatRect newBounds(newPosition, shape.getSize());
+    Vector2f newPosition = shape.getPosition() + movement;
+    FloatRect newBounds(newPosition, shape.getSize());
 
     // Vérifier les quatre coins du joueur
     auto isWalkable = [&](float x, float y) {
@@ -79,7 +79,7 @@ void Player::update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) {
     }
 
     attackTimer += deltaTime;
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && attackTimer >= ATTACK_COOLDOWN) {
+    if (Mouse::isButtonPressed(Mouse::Left) && attackTimer >= ATTACK_COOLDOWN) {
         attack(enemies);
         attackTimer = 0.f;
     }
@@ -98,7 +98,7 @@ void Player::attack(std::vector<Entity*>enemies) {
     std::cout << "Player attacks" << std::endl;
 }
 
-void Player::draw(sf::RenderWindow& window) {
+void Player::draw(RenderWindow& window) {
     window.draw(shape);
     window.draw(directionShape);
 }

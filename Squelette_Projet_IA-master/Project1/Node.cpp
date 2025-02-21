@@ -69,7 +69,7 @@ public:
     int expectedValue;
     ConditionNode(Blackboard& bb, const string& key, int value) : blackboard(bb), key(key), expectedValue(value) {}
     NodeMonster execute() {
-        return (blackboard.GetValue(key) < expectedValue) ? NodeMonster::SUCCESS : NodeMonster::FAILURE;
+        return (blackboard.GetValue(key) <= expectedValue) ? NodeMonster::SUCCESS : NodeMonster::FAILURE;
     }
 };
 
@@ -90,6 +90,7 @@ public:
 		}
 		else if (actions == "Patrouille") {
 			cout << "ActionPatrouille: " << endl;
+
 		}
         return NodeMonster::SUCCESS;
     }

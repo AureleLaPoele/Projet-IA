@@ -7,7 +7,7 @@
 
 const int GRID_WIDTH = 20;
 const int GRID_HEIGHT = 15;
-const int CELL_SIZE = 40;
+const float CELL_SIZE = 40;
 
 struct Cell {
     bool walkable;

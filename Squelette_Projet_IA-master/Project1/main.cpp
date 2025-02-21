@@ -2,10 +2,9 @@
 #include "Player.hpp"
 #include "Boo.h"
 #include "Grid.hpp"
-#include "Chaser.hpp"
+#include "Chasser.hpp"
 #include "Monster.hpp"
 #include <vector>
-
 
 /* Idées :
 - faire une fonction dans le main qui vérif la direction du player et celle du boo
@@ -16,29 +15,29 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jeu SFML - IA Ennemis");
+    RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jeu SFML - IA Ennemis");
     window.setFramerateLimit(60);
 
-    std::vector<Entity*> players;
+    vector<Entity*> players;
     players.push_back(new Player(600, 100, 100));
 
-    std::vector<Entity*> enemies;
+    vector<Entity*> enemies;
     enemies.push_back(new Boo(100, 100, 100, 25, 50.0f));
-    enemies.push_back(new Chaser(200, 200,100));
-	//enemies.push_back(new Monster(700, 500, 50));
+    enemies.push_back(new Chasser(200, 200, 100));
+	enemies.push_back(new Monster(700, 500, 50));
     
     Grid grid;
     grid.loadFromFile("map.txt");
 
-    sf::Clock clock;
+    Clock clock;
 
     while (window.isOpen()) {
-        sf::Time dt = clock.restart();
+        Time dt = clock.restart();
         float deltaTime = dt.asSeconds();
 
-        sf::Event event;
+        Event event;
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            if (event.type == Event::Closed)
                 window.close();
         }
 

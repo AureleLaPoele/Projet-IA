@@ -6,7 +6,7 @@
 class Player : public Entity {
 public:
     Direction direction;
-    sf::RectangleShape directionShape;
+    RectangleShape directionShape;
     static constexpr float SPEED = 200.0f;
     static constexpr int DAMAGE = 20;
     static constexpr float ATTACK_COOLDOWN = 0.5f;
@@ -16,7 +16,7 @@ public:
     ~Player();
     void attack(std::vector<Entity*> enemies);
     void update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) override;
-    void draw(sf::RenderWindow& window) override;
+    void draw(RenderWindow& window) override;
 };
 
 #endif // PLAYER_HPP
