@@ -9,6 +9,7 @@ enum class BooState { Idle, Chase, HalfChase, Freeze, Escape };
 
 class Boo : public Enemy {
 public:
+	sf::Vector2f initialPos;
 	sf::Texture booChaseTexture;
 	sf::Texture booFreezeTexture;
 	sf::Sprite booChase;
@@ -30,7 +31,9 @@ public:
 	void setDirection(float dx, float dy);
 	void setBooOrientation();
 	void attack(std::vector<Entity*>players);
+	void moveTowardsInitialPosition(float speed, float deltaTime);
 	void changeState(BooState newState);
+	bool isInInitialPos();
 };
 
 #endif

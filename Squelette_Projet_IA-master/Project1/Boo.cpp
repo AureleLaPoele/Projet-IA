@@ -3,6 +3,8 @@
 
 Boo::Boo(float x, float y, float radius, int hp, float speed) : Enemy(x, y, hp), state(BooState::Idle), direction(Direction::EAST), speed(speed) {
 	detectionRadius = radius;
+    initialPos.x = x;
+    initialPos.y = y;
     if (!booChaseTexture.loadFromFile("assets/Boo/Boo_Chase.png")) {
         std::cerr << "Erreur lors du chargement de la texture du Boo qui chasse.\n";
     }
@@ -27,30 +29,34 @@ void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
     for (auto entity : players) {
         Player* player = dynamic_cast<Player*>(entity);
         if (player) {
-            if (isSeenByPlayer(*player)) {
-                changeState(BooState::Freeze);
-                //state = BooState::Freeze; // Si Boo est vu, il se fige
-            }
-            else {
-                changeState(BooState::Chase);
-                //state = BooState::Chase; // Sinon, il chasse le joueur
+            if (state != BooState::Escape) {
+                if (isSeenByPlayer(*player)) {
+                    changeState(BooState::Freeze);
+                }
+                else {
+                    changeState(BooState::Chase);
+                }
             }
 
             switch (state) {
             case BooState::Idle:
-                shape.setFillColor(sf::Color::Green);
                 break;
 
             case BooState::Chase:
                 moveTowardsPlayer(*player, speed, deltaTime);
-                shape.setFillColor(sf::Color::Red);
                 break;
 
             case BooState::Freeze:
-                shape.setFillColor(sf::Color::White);
                 break;
 
             case BooState::Escape:
+                moveTowardsInitialPosition(speed, deltaTime);
+                if (isInInitialPos()) {
+                    changeState(BooState::Idle);
+                }
+                else {
+                    std::cout << "Pas encore a pos initial\n";
+                }
                 break;
             }
         }
@@ -61,8 +67,17 @@ void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
     pos = booFreeze.getPosition();
     setBooOrientation();
     attack(players);
+    //std::cout << booChase.getPosition().x << " " << booChase.getPosition().y << std::endl;
 }
 
+bool Boo::isInInitialPos() {
+    if (pos.x <= 105.0f && pos.x >= 95.0f) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 void Boo::attack(std::vector<Entity*>players) {
     for (auto& player : players) {
         if (player = dynamic_cast<Player*>(player)) {
@@ -72,6 +87,7 @@ void Boo::attack(std::vector<Entity*>players) {
                     std::cout << "Enemy attacks" << std::endl;
                     std::cout << "Player HP: " << player->health << std::endl;
                     attackCD.restart();
+                    changeState(BooState::Escape);
                 }
             }
         }
@@ -81,10 +97,12 @@ void Boo::attack(std::vector<Entity*>players) {
 void Boo::changeState(BooState newState) {
     if (state != newState && newState == BooState::Chase) {
         state = BooState::Chase;
-        //std::cout << "Le boo vous poursuit\n";
     } else if (state != newState && newState == BooState::Freeze) {
         state = BooState::Freeze;
-        //std::cout << "Le boo se cache\n";
+    } else if (state != newState && newState == BooState::Escape) {
+        state = BooState::Escape;
+    } else if (state != newState && newState == BooState::Idle) {
+        state = BooState::Idle;
     }
 }
 
@@ -106,6 +124,22 @@ bool Boo::isSeenByPlayer(const Player& player) {
 void Boo::moveTowardsPlayer(const Player& player, float speed, float deltaTime) {
     float dx = player.pos.x - pos.x;
     float dy = player.pos.y - pos.y;
+
+    float length = std::sqrt(dx * dx + dy * dy);
+
+    dx /= length;
+    dy /= length;
+
+    pos.x += dx * speed * deltaTime;
+    pos.y += dy * speed * deltaTime;
+
+    setDirection(dx, dy);
+}
+
+void Boo::moveTowardsInitialPosition(float speed, float deltaTime) {
+    speed *= 5;
+    float dx = initialPos.x - pos.x;
+    float dy = initialPos.y - pos.y;
 
     float length = std::sqrt(dx * dx + dy * dy);
 
@@ -141,4 +175,5 @@ void Boo::setBooOrientation() {
 void Boo::draw(sf::RenderWindow& window) {
     if (state == BooState::Chase) window.draw(booChase);
     else if (state == BooState::Freeze) window.draw(booFreeze);
+    else if (state == BooState::Escape) window.draw(booFreeze);
 }

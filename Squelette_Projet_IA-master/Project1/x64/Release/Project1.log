@@ -1,11 +1,7 @@
 ﻿  Boo.cpp
-  main.cpp
-C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\Project1\Chasser.hpp(34,46): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
-  (compiler le fichier source 'main.cpp')
-  
   Génération de code en cours
-  1 of 375 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  2 of 377 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
   Project1.vcxproj -> C:\Users\agodin\Documents\GitHub\Projet-IA\Squelette_Projet_IA-master\x64\Release\Project1.exe
