@@ -22,9 +22,9 @@ int main() {
     players.push_back(new Player(600, 100, 100));
 
     vector<Entity*> enemies;
-    //enemies.push_back(new Boo(100, 100, 100, 25, 50.0f));
+    enemies.push_back(new Boo(100, 100, 100, 25, 50.0f));
     enemies.push_back(new Chasser(200, 200, 100));
-	//enemies.push_back(new Monster(700, 500, 50));
+	enemies.push_back(new Monster(700, 500, 50));
     
     Grid grid;
     grid.loadFromFile("map.txt");
