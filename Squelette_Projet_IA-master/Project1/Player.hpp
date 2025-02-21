@@ -16,6 +16,7 @@ public:
     ~Player();
     void attack(std::vector<Entity*> enemies);
     void update(float deltaTime, Grid& grid, std::vector<Entity*> enemies) override;
+    void checkCol(std::vector<Entity*> enemies);
     void draw(RenderWindow& window) override;
 };
 

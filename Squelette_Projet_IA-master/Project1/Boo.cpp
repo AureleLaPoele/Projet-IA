@@ -60,16 +60,31 @@ void Boo::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
     pos = booChase.getPosition();
     pos = booFreeze.getPosition();
     setBooOrientation();
+    attack(players);
+}
 
+void Boo::attack(std::vector<Entity*>players) {
+    for (auto& player : players) {
+        if (player = dynamic_cast<Player*>(player)) {
+            if (attackCD.getElapsedTime() >= cooldownTime) {
+                if (player->isAlive() && (booChase.getGlobalBounds().intersects(player->shape.getGlobalBounds()) || booFreeze.getGlobalBounds().intersects(player->shape.getGlobalBounds()))) {
+                    player->takeDamage(DAMAGE);
+                    std::cout << "Enemy attacks" << std::endl;
+                    std::cout << "Player HP: " << player->health << std::endl;
+                    attackCD.restart();
+                }
+            }
+        }
+    }
 }
 
 void Boo::changeState(BooState newState) {
     if (state != newState && newState == BooState::Chase) {
         state = BooState::Chase;
-        std::cout << "Le boo vous poursuit\n";
+        //std::cout << "Le boo vous poursuit\n";
     } else if (state != newState && newState == BooState::Freeze) {
         state = BooState::Freeze;
-        std::cout << "Le boo se cache\n";
+        //std::cout << "Le boo se cache\n";
     }
 }
 
